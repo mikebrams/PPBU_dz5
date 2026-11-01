@@ -51,7 +51,8 @@ def exchange():
                     mb.showerror('Ошибка', f'Целевая валюта для базовой валюты 1 - не найдена')
                 else:
                     exchange_rate = data_bc1['rates'][target_code]
-                    mb.showinfo('Курс обмена 1', f'Курс: {exchange_rate:.2f} {target_code[:3]} за 1 {base_code1}')
+                    mb.showinfo('Курс обмена 1', f'Курс для базовой валюты 1:'
+                                                 f'\n{exchange_rate:.2f} {target_code[:3]} за 1 {base_code1}')
             except Exception as e:
                 mb.showerror('Ошибка', f'Произошла ошибка:\n{e}')
 
@@ -66,7 +67,8 @@ def exchange():
                     mb.showerror('Ошибка', f'Целевая валюта для базовой валюты 2 - не найдена')
                 else:
                     exchange_rate = data_bc2['rates'][target_code]
-                    mb.showinfo('Курс обмена 2', f'Курс: {exchange_rate:.2f} {target_code[:3]} за 1 {base_code2}')
+                    mb.showinfo('Курс обмена 2', f'Курс для базовой валюты 2:'
+                                                 f'\n{exchange_rate:.2f} {target_code[:3]} за 1 {base_code2}')
             except Exception as e:
                 mb.showerror('Ошибка', f'Произошла ошибка:\n{e}')
 
