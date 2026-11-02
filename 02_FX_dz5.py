@@ -29,29 +29,28 @@ def update_target_currency_label(event):
 
 
 def get_rate(base, target):
-    url = f'https://---open.er-api.com/v6/latest/{base}'
+    url = f'https://open.er-api.com/v6/latest/{base}'
     try:
         response = requests.get(url)
         if response.status_code != 200:
             return f"Ошибка: HTTP {response.status_code}"
-        # response.raise_for_status()
+        response.raise_for_status()
         data = response.json()
         if target not in data['rates']:
-            # mb.showerror('Ошибка', f'Целевая валюта {target} не найдена')
             return f'Целевая валюта {target} не найдена'
         else:
             exchange_rate = data['rates'][target]
             return exchange_rate
     except Exception as e:
-        # mb.showerror('Ошибка', f'Произошла ошибка:\n{e}')
         return f'Произошла ошибка:\n{e}'
 
+
 def exchange():
-    target_code = comb3.get()   # eg 'AUD: Австралийский доллар'
+    target_code = comb3.get()  # eg 'AUD: Австралийский доллар'
     if not target_code:
         mb.showwarning('Внимание', 'Выберите целевую валюту')
         return
-    target = target_code[:3]
+    target = currencies[target_code]
     base1 = comb1.get()[:3]
     base2 = comb2.get()[:3]
 
@@ -61,25 +60,22 @@ def exchange():
     else:
         rate1 = get_rate(base1, target)
         rate2 = get_rate(base2, target)
-        if isinstance(rate1, float) and isinstance(rate2, float):
-            rate1_float = rate1
-            rate2_float = rate2
-            mb.showinfo('Курсы обмена',f'Курс 1:\t 1 {base1}\t= {rate1_float:.2f} {target_code[:3]}\n'
-                                           f'Курс 2:\t 1 {base2}\t= {rate2_float:.2f} {target_code[:3]}')
+        if isinstance(rate1, (float, int)) and isinstance(rate2, (float, int)):
+            len_ = max(len(f'{rate1:.2f}'), len(f'{rate2:.2f}'))
+            mb.showinfo('Курсы обмена', f'Курс 1:\t 1 {base1}\t= {rate1:{len_},.2f} {target}\n'
+                                                     f'Курс 2:\t 1 {base2}\t= {rate2:{len_},.2f} {target}')
 
-        elif not isinstance(rate1, float) and not isinstance(rate1, float):
-            rate1_str = rate1
-            rate2_str = rate2
-            mb.showinfo('Курсы обмена',f'Курс 1:\t {rate1_str}\nКурс 2:\t {rate2_str}')
+        elif not isinstance(rate1, (float, int)) and not isinstance(rate2, (float, int)):
+            mb.showinfo('Курсы обмена', f'Курс 1:\t {rate1}\nКурс 2:\t {rate2}')
 
-        elif not isinstance(rate1, float):
-            rate1_str = rate1
-            mb.showinfo('Курсы обмена', f'Курс 1:\t {rate1_str}\n'
-                                        f'Курс 2:\t {base2}\t= {rate2:.2f} {target_code[:3]}')
+        elif not isinstance(rate1, (float, int)):
+            mb.showinfo('Курсы обмена', f'Курс 1:\t {rate1}\n'
+                                        f'Курс 2:\t {base2}\t= {rate2:,.2f} {target_code[:3]}')
+
         else:
-            rate2_str = rate2
-            mb.showinfo('Курсы обмена', f'Курс 1:\t 1 {base1}\t= {rate1:.2f} {target_code[:3]}\n'
-                                        f'Курс 2:\t 1 {rate2_str}')
+            mb.showinfo('Курсы обмена', f'Курс 1:\t 1 {base1}\t= {rate1:,.2f} {target_code[:3]}\n'
+                                        f'Курс 2:\t {rate2}')
+
 
 currencies = {
     '': '',
