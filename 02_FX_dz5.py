@@ -30,7 +30,6 @@ def update_target_currency_label(event):
 
 def get_rate(base, target):
     url = f'https://open.er-api.com/v6/latest/{base}'
-    print(base)
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -54,11 +53,17 @@ def exchange():
 
     if not base1 and not base2:
         mb.showwarning('Внимание', 'Выберите хотя бы одну базовую валюту')
-    else:
+        return
+    elif base1 and base2:
         rate1 = get_rate(base1, target)
         rate2 = get_rate(base2, target)
-        mb.showinfo('Курсы обмена',f'1 {base1} = {rate1:.2f} {target_code[:3]}\n'
-                                   f'1 {base2} = {rate2:.2f} {target_code[:3]}')
+        mb.showinfo('Курсы обмена',f'1 {base1}\t= {rate1:>10.2f} {target_code[:3]}\n'
+                                       f'1 {base2}\t= {rate2:>10.2f} {target_code[:3]}')
+    else:
+        base = max(base1, base2)
+        rate = get_rate(base, target)
+        mb.showinfo('Курс обмена',f'1 {base}\t= {rate:>10.2f} {target_code[:3]}')
+
 
 
 currencies = {
