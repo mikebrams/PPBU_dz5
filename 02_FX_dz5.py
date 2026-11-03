@@ -62,18 +62,18 @@ def exchange():
         rate2 = get_rate(base2, target)
         if isinstance(rate1, (float, int)) and isinstance(rate2, (float, int)):
             len_ = max(len(f'{rate1:.2f}'), len(f'{rate2:.2f}'))
-            mb.showinfo('Курсы обмена', f'Курс 1:\t 1 {base1}\t= {rate1:{len_},.2f} {target}\n'
-                                                     f'Курс 2:\t 1 {base2}\t= {rate2:{len_},.2f} {target}')
+            mb.showinfo('Курсы обмена', f'Курс 1:\t 1 {base1}\t= {rate1:>{len_},.2f} {target}\n'
+                                                     f'Курс 2:\t 1 {base2}\t= {rate2:>{len_},.2f} {target}')
 
         elif not isinstance(rate1, (float, int)) and not isinstance(rate2, (float, int)):
             mb.showinfo('Курсы обмена', f'Курс 1:\t {rate1}\nКурс 2:\t {rate2}')
 
         elif not isinstance(rate1, (float, int)):
             mb.showinfo('Курсы обмена', f'Курс 1:\t {rate1}\n'
-                                        f'Курс 2:\t {base2}\t= {rate2:,.2f} {target_code[:3]}')
+                                        f'Курс 2:\t {base2}\t= {rate2:,.2f} {target}')
 
         else:
-            mb.showinfo('Курсы обмена', f'Курс 1:\t 1 {base1}\t= {rate1:,.2f} {target_code[:3]}\n'
+            mb.showinfo('Курсы обмена', f'Курс 1:\t 1 {base1}\t= {rate1:,.2f} {target}\n'
                                         f'Курс 2:\t {rate2}')
 
 
