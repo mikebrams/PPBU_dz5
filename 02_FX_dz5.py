@@ -63,7 +63,7 @@ def exchange():
         if isinstance(rate1, (float, int)) and isinstance(rate2, (float, int)):
             len_ = max(len(f'{rate1:.2f}'), len(f'{rate2:.2f}'))
             mb.showinfo('Курсы обмена', f'Курс 1:\t 1 {base1}\t= {rate1:>{len_},.2f} {target}\n'
-                                                     f'Курс 2:\t 1 {base2}\t= {rate2:>{len_},.2f} {target}')
+                                        f'Курс 2:\t 1 {base2}\t= {rate2:>{len_},.2f} {target}')
 
         elif not isinstance(rate1, (float, int)) and not isinstance(rate2, (float, int)):
             mb.showinfo('Курсы обмена', f'Курс 1:\t {rate1}\nКурс 2:\t {rate2}')
@@ -85,9 +85,12 @@ currencies = {
     'CNY: Китайский юань': 'CNY',
     'EUR: Евро': 'EUR',
     'GBP: Фунт стерлингов': 'GBP',
+    'INR: Индийская рупия': 'INR',
     'JPY: Японская йена': 'JPY',
+    'KGS: Киргизский сом': 'KGS',
     'KZT: Казахстанский тенге': 'KZT',
     'RUB: Российский рубль': 'RUB',
+    'TRY: "Турецкая лира': 'TRY',
     'USD: Доллар США': 'USD',
     'UZS: Узбекский сум': 'UZS'}
 
